@@ -1,15 +1,31 @@
 import CharacterList from './components/CharacterList'
-import { useState } from 'react'
-import CharacterData from './data/CharacterData'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { TavernProvider } from './context/TavernContext'
+import CharacterCreatorPage from './pages/CharacterCreatorPage'
 
 function App() {
 
-    const [characters, setCharacters] = useState(CharacterData)
+    const handleSelect = (character) => {
+
+    }
 
     return (
-        <>
-            <CharacterList characters={characters} />
-        </>
+        <TavernProvider>
+            <Router>
+                <Routes>
+                    <Route path='/' element={
+                        <>
+                            <CharacterList selectCharacter={handleSelect}/>
+                        </>
+                    } />
+
+                    <Route path='/character' element={
+                        <CharacterCreatorPage></CharacterCreatorPage>
+                    }/>
+                    
+                </Routes>
+            </Router>
+        </TavernProvider>
     )
 }
 
