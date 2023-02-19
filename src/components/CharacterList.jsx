@@ -4,7 +4,7 @@ import TavernContext from '../context/TavernContext'
 
 function CharacterList({selectCharacter}) {
    
-    const { characters } = useContext(TavernContext)
+    const { characters, addCharacter } = useContext(TavernContext)
 
     if (!characters || characters.length === 0) {
         return <p>No Characters</p>
@@ -17,6 +17,7 @@ function CharacterList({selectCharacter}) {
 
     return (
         <div>
+            <button onClick={addCharacter}><b>NEW CHARACTER</b></button>
             {characters.map(
                 (character) => (
                     <CharacterItem 

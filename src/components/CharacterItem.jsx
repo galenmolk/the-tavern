@@ -9,15 +9,14 @@ function CharacterItem({character, handleSelect}) {
     const navigate = useNavigate()
 
     const handleEdit = () => {
+        console.log('handle edit')
         setActiveCharacter(character)
         navigate('/character')
     }
 
     return (
-      <div className='card' onClick={() => {
-          console.log(character)
-      }}>
-        <button onClick={handleEdit}><b>Edit</b> <FaEdit/></button>
+      <div className='card'>
+        <button onClick={handleEdit}><b>Edit</b><FaEdit/></button>
       <h3>{character.name}</h3>
       <p>
         Defense: {character.defense}<br/>

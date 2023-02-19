@@ -1,29 +1,17 @@
 import { useContext, useState, useEffect } from 'react'
 import TavernContext from '../context/TavernContext'
 import InputField from '../components/shared/InputField'
+import { useNavigate } from 'react-router-dom'
 
 function CharacterCreatorPage() {
-
-    window.onbeforeunload = function (event) {
-        event = event || window.event
-
-        const contextName = (name === '' ? 'This character ' : name)
-
-        const message = contextName + ' will not be saved. Exit page?'
-
-        if (event) {
-            event.returnValue = message
-        }
-
-        return message
-    }
+    const navigate = useNavigate()
 
     const [name, setName] = useState()
     const [health, setHealth] = useState()
     const [defense, setDefense] = useState()
     const [speed, setSpeed] = useState()
 
-    const { activeCharacter } = useContext(TavernContext)
+    const { activeCharacter, updateCharacter } = useContext(TavernContext)
 
     useEffect(() => {
         if (activeCharacter === null) {
@@ -38,7 +26,18 @@ function CharacterCreatorPage() {
     }, [activeCharacter])
 
     const handleSubmit = (event) => {
+        event.preventDefault()
         console.log('form submitted')
+
+        const updatedCharacter = {
+            name,
+            health,
+            defense,
+            speed
+        }
+
+        updateCharacter(activeCharacter.id, updatedCharacter)
+        navigate('/')
     }
 
     const handleNameChange = (event) => {

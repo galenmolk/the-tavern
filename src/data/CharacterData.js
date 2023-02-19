@@ -1,5 +1,6 @@
 const CharacterData = [
     {
+        "id": 1,
         "name": "Aggo",
         "nameButtonColor": "#A0F7FF",
         "defense": 22,
@@ -96,6 +97,7 @@ const CharacterData = [
         ]
       },
       {
+        "id": 2,
         "name": "Dio",
         "nameButtonColor": "#A0A0FF",
         "defense": 14,
@@ -175,6 +177,7 @@ const CharacterData = [
           }]
       },
       {
+        "id": 3,
         "name": "Kazak",
         "nameButtonColor": "#FFA0C3",
         "defense": 16,
