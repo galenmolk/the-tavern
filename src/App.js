@@ -1,7 +1,9 @@
 import CharacterList from './components/CharacterList'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import { TavernProvider } from './context/TavernContext'
-import CharacterCreatorPage from './pages/CharacterCreatorPage'
+import TavernContext from './context/TavernContext'
+import CharacterEditor from './pages/CharacterEditor'
+import { useContext } from 'react'
+import StatLabel from './components/shared/StatLabel'
 
 function App() {
 
@@ -9,23 +11,25 @@ function App() {
 
     }
 
+    const { isEditing, setIsEditing } = useContext(TavernContext)
+
+    const characterList = () => {
+        return <CharacterList selectCharacter={handleSelect}/>
+    }
+
+    const characterEditor = () => {
+        return <CharacterEditor/>
+    }
+
     return (
-        <TavernProvider>
             <Router>
                 <Routes>
                     <Route path='/' element={
-                        <>
-                            <CharacterList selectCharacter={handleSelect}/>
-                        </>
+                        isEditing ? characterEditor() : characterList()
                     } />
-
-                    <Route path='/character' element={
-                        <CharacterCreatorPage></CharacterCreatorPage>
-                    }/>
                     
                 </Routes>
             </Router>
-        </TavernProvider>
     )
 }
 

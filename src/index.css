@@ -1,16 +1,32 @@
 body {
     font-family: 'Courier', sans-serif;
-    background-color: #014059;
+    background-color: #106938;
     color: #fff;
     line-height: 2.0;
 }
 
 .card {
-    background-color: #fff;
-    color: #333;
+    background-color: #2b8d57;
+    color: #000000;
     border-radius: 5px;
-    padding: 3px 20px;
-    margin: 20px 0;
     position: relative;
+    margin: 10px;
 }
 
+.character-stats {
+
+}
+
+.stat-label {
+    background-color: #226f45;
+    color: #000000;
+    padding-right: 30px;
+}
+
+.horizontal {
+    display: inline-block;
+}
+
+.padding-right {
+    padding-right: 30px;
+}

@@ -1,28 +1,27 @@
-import { FaEdit} from 'react-icons/fa'
+import { FaEdit, FaTimes } from 'react-icons/fa'
 import { useContext } from 'react'
 import TavernContext from '../context/TavernContext'
-import { useNavigate } from 'react-router-dom'
+import StatLabel from './shared/StatLabel'
 
 function CharacterItem({character, handleSelect}) {
-    const { setActiveCharacter } = useContext(TavernContext)
-
-    const navigate = useNavigate()
+    const { startEditing } = useContext(TavernContext)
 
     const handleEdit = () => {
         console.log('handle edit')
-        setActiveCharacter(character)
-        navigate('/character')
+        startEditing(character)
     }
 
     return (
       <div className='card'>
-        <button onClick={handleEdit}><b>Edit</b><FaEdit/></button>
-      <h3>{character.name}</h3>
-      <p>
-        Defense: {character.defense}<br/>
-        Health: {character.health}<br/>
-        Speed: {character.speed}
-      </p>
+        <div>
+          <h3 className='horizontal padding-right'>{character.name}</h3>
+          <button className='horizontal padding-right' onClick={handleEdit}><b>Edit</b><FaEdit/></button>
+        </div>
+        <div className='character-stats'>
+          <StatLabel label='Health' value={character.health}/>
+          <StatLabel label='Defense' value={character.defense}/>
+          <StatLabel label='Speed' value={character.speed}/>
+        </div>
       </div>
   )
 }

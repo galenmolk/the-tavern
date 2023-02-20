@@ -1,62 +1,56 @@
 import { useContext, useState, useEffect } from 'react'
 import TavernContext from '../context/TavernContext'
 import InputField from '../components/shared/InputField'
-import { useNavigate } from 'react-router-dom'
 
-function CharacterCreatorPage() {
-    const navigate = useNavigate()
+function CharacterEditor() {
 
     const [name, setName] = useState()
     const [health, setHealth] = useState()
     const [defense, setDefense] = useState()
     const [speed, setSpeed] = useState()
 
-    const { activeCharacter, updateCharacter } = useContext(TavernContext)
+    const { stopEditing, editingCharacter, updateCharacter } = useContext(TavernContext)
 
     useEffect(() => {
-        if (activeCharacter === null) {
+        if (editingCharacter === null) {
             return
         }
 
-        setName(activeCharacter.name)
-        setHealth(activeCharacter.health)
-        setDefense(activeCharacter.defense)
-        setSpeed(activeCharacter.speed)
+        setName(editingCharacter.name)
+        setHealth(editingCharacter.health)
+        setDefense(editingCharacter.defense)
+        setSpeed(editingCharacter.speed)
         
-    }, [activeCharacter])
+    }, [editingCharacter])
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        console.log('form submitted')
 
         const updatedCharacter = {
+            id: editingCharacter.id,
             name,
             health,
             defense,
             speed
         }
 
-        updateCharacter(activeCharacter.id, updatedCharacter)
-        navigate('/')
+        updateCharacter(editingCharacter.id, updatedCharacter)
+        stopEditing()
     }
 
     const handleNameChange = (event) => {
-        console.log('new name: ' + event.target.value)
         setName(event.target.value)
     }
 
     const handleHealthChange = (event) => {
-        console.log('new health: ' + event.target.value)
         setHealth(event.target.value)
     }
 
     const handleDefenseChange = (event) => {
-        console.log('new defense: ' + event.target.value)
         setDefense(event.target.value)
     }
 
     const handleSpeedChange = (event) => {
-        console.log('new speed: ' + event.target.value)
         setSpeed(event.target.value)
     }
 
@@ -104,4 +98,4 @@ function CharacterCreatorPage() {
     )
 }
 
-export default CharacterCreatorPage
+export default CharacterEditor

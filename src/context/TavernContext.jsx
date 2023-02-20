@@ -12,10 +12,11 @@ const DEFAULT_SPEED = 6
 export const TavernProvider = ({children}) => {
 
     const [characters, setCharacters] = useState(CharacterData)
-    const [activeCharacter, setActiveCharacter] = useState({})
+    const [editingCharacter, setEditingCharacter] = useState({})
+    const [isEditing, setIsEditing] = useState(false)
 
     const addCharacter = () => {
-        console.log('add character')
+
         const newCharacter = {
             id: uuidv4(),
             name: DEFAULT_NAME,
@@ -27,15 +28,26 @@ export const TavernProvider = ({children}) => {
         setCharacters([newCharacter, ...characters])
     }
 
+    const startEditing = (character) => {
+        setEditingCharacter(character)
+        setIsEditing(true)
+    }
+
+    const stopEditing = () => {
+        setEditingCharacter(null)
+        setIsEditing(false)
+    }
+
     const updateCharacter = (id, updatedCharacter) => {
-        console.log("updateCharacter " + id + " " + JSON.stringify(updatedCharacter))
-        setCharacters(characters.map((c) =>  c.id === id ? { ...updatedCharacter, ...c } : c))
+        setCharacters(characters.map((c) => c.id === id ? updatedCharacter : c))
     }
 
     return <TavernContext.Provider value = {{
             characters,
-            activeCharacter,
-            setActiveCharacter,
+            editingCharacter,
+            isEditing,
+            startEditing,
+            stopEditing,
             addCharacter,
             updateCharacter
         }}
