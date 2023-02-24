@@ -4,6 +4,7 @@ import TavernContext from './context/TavernContext'
 import CharacterEditor from './pages/CharacterEditor'
 import { useContext } from 'react'
 import StatLabel from './components/shared/StatLabel'
+import AbilitySelector from './pages/AbilitySelector'
 
 function App() {
 
@@ -11,7 +12,7 @@ function App() {
 
     }
 
-    const { isEditing, setIsEditing } = useContext(TavernContext)
+    const { editingCharacter } = useContext(TavernContext)
 
     const characterList = () => {
         return <CharacterList selectCharacter={handleSelect}/>
@@ -25,8 +26,13 @@ function App() {
             <Router>
                 <Routes>
                     <Route path='/' element={
-                        isEditing ? characterEditor() : characterList()
+                        editingCharacter ? characterEditor() : characterList()
                     } />
+
+                    <Route path='/abilities' element={
+                        <AbilitySelector />
+                    }
+                    />
                     
                 </Routes>
             </Router>

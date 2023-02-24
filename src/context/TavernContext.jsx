@@ -1,51 +1,40 @@
 import { createContext, useState } from "react"
+import AbilityData from "../data/AbilityData"
 import CharacterData from "../data/CharacterData"
-import { v4 as uuidv4 } from 'uuid'
+import { NewCharacter } from "../utils"
 
 const TavernContext = createContext()
 
-const DEFAULT_NAME = 'New Character'
-const DEFAULT_HEALTH = 0
-const DEFAULT_DEFENSE = 0
-const DEFAULT_SPEED = 6
-
 export const TavernProvider = ({children}) => {
-
     const [characters, setCharacters] = useState(CharacterData)
-    const [editingCharacter, setEditingCharacter] = useState({})
-    const [isEditing, setIsEditing] = useState(false)
+    const [editingCharacter, setEditingCharacter] = useState(null)
+    const [abilities, setAbilities] = useState(AbilityData)
 
     const addCharacter = () => {
-
-        const newCharacter = {
-            id: uuidv4(),
-            name: DEFAULT_NAME,
-            health: DEFAULT_HEALTH,
-            defense: DEFAULT_DEFENSE,
-            speed: DEFAULT_SPEED
-        }
-
-        setCharacters([newCharacter, ...characters])
+        setCharacters([NewCharacter(), ...characters])
     }
 
     const startEditing = (character) => {
         setEditingCharacter(character)
-        setIsEditing(true)
     }
 
     const stopEditing = () => {
         setEditingCharacter(null)
-        setIsEditing(false)
     }
 
     const updateCharacter = (id, updatedCharacter) => {
         setCharacters(characters.map((c) => c.id === id ? updatedCharacter : c))
     }
 
+    const getAbilities = (abilityIds) => {
+        return abilities.filter((a) => abilityIds.includes(a.id));
+    }
+
     return <TavernContext.Provider value = {{
             characters,
             editingCharacter,
-            isEditing,
+            abilities,
+            getAbilities,
             startEditing,
             stopEditing,
             addCharacter,
