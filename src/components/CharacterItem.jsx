@@ -1,13 +1,13 @@
 import { FaEdit, FaTimes } from 'react-icons/fa'
 import { useContext } from 'react'
-import TavernContext from '../context/TavernContext'
 import StatLabel from './shared/StatLabel'
+import CharacterContext from '../context/CharacterContext'
 
 function CharacterItem({ character }) {
-    const { startEditing } = useContext(TavernContext)
+    const { setEditingCharacter } = useContext(CharacterContext)
 
     const handleEdit = () => {
-        startEditing(character)
+      setEditingCharacter(character)
     }
 
     return (

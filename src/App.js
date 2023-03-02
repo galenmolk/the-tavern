@@ -1,21 +1,16 @@
 import CharacterList from './components/CharacterList'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import TavernContext from './context/TavernContext'
 import CharacterEditor from './pages/CharacterEditor'
 import { useContext } from 'react'
 import StatLabel from './components/shared/StatLabel'
 import AbilitySelector from './pages/AbilitySelector'
+import CharacterContext from './context/CharacterContext'
 
 function App() {
-
-    const handleSelect = (character) => {
-
-    }
-
-    const { editingCharacter } = useContext(TavernContext)
+    const { editingCharacter } = useContext(CharacterContext)
 
     const characterList = () => {
-        return <CharacterList selectCharacter={handleSelect}/>
+        return <CharacterList />
     }
 
     const characterEditor = () => {

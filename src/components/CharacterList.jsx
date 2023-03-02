@@ -1,18 +1,13 @@
 import CharacterItem from './CharacterItem'
 import { useContext } from 'react'
-import TavernContext from '../context/TavernContext'
+import CharacterContext from '../context/CharacterContext'
 
-function CharacterList({selectCharacter}) {
+function CharacterList() {
    
-    const { characters, addCharacter } = useContext(TavernContext)
+    const { characters, addCharacter } = useContext(CharacterContext)
 
     if (!characters || characters.length === 0) {
         return <p>No Characters</p>
-    }
-
-    const handleSelect = (character) =>
-    {
-        selectCharacter(character)
     }
 
     return (
@@ -23,7 +18,6 @@ function CharacterList({selectCharacter}) {
                     <CharacterItem 
                         key={characters.indexOf(character)} 
                         character={character}
-                        handleSelect={handleSelect}
                     />
                 )
             )}

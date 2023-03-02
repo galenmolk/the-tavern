@@ -1,9 +1,11 @@
 import { useContext, useState } from 'react'
-import TavernContext from '../context/TavernContext'
 import InputField from '../components/shared/InputField'
+import AbilityContext from '../context/AbilityContext'
+import CharacterContext from '../context/CharacterContext'
 
 function CharacterEditor() {
-    const { getAbilities, stopEditing, editingCharacter, updateCharacter } = useContext(TavernContext)
+    const { getAbilities } = useContext(AbilityContext)
+    const { setEditingCharacter, editingCharacter, updateCharacter } = useContext(CharacterContext)
 
     const [modifiedCharacter, setModifiedCharacter] = useState(editingCharacter)
 
@@ -14,7 +16,7 @@ function CharacterEditor() {
         c.id = editingCharacter.id;
 
         updateCharacter(editingCharacter.id, c)
-        stopEditing()
+        setEditingCharacter(null);
     }
 
     const setName = (name) => {

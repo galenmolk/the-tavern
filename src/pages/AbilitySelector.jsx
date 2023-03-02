@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import TavernContext from "../context/TavernContext";
+import AbilityContext from "../context/AbilityContext";
 
 export default function AbilitySelector() {
-    const { abilities } = useContext(TavernContext)
+    const { abilities } = useContext(AbilityContext)
 
     return (
         <ul>
