@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/the-tavern/static/css/main.33d11d39.css",
-    "main.js": "/the-tavern/static/js/main.5e4239af.js",
+    "main.js": "/the-tavern/static/js/main.ea6369bb.js",
     "index.html": "/the-tavern/index.html",
     "main.33d11d39.css.map": "/the-tavern/static/css/main.33d11d39.css.map",
-    "main.5e4239af.js.map": "/the-tavern/static/js/main.5e4239af.js.map"
+    "main.ea6369bb.js.map": "/the-tavern/static/js/main.ea6369bb.js.map"
   },
   "entrypoints": [
     "static/css/main.33d11d39.css",
-    "static/js/main.5e4239af.js"
+    "static/js/main.ea6369bb.js"
   ]
 }
