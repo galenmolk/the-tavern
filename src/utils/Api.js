@@ -19,6 +19,10 @@ const ABILITY_PARAMS = {
     label: 'abilities'
 }
 
+const HEADERS = {
+    'Authorization': `Bearer ${GH_PAT}`
+}
+
 const fetchCharacters = async () => {
     return await fetchGistData(CHARACTER_PARAMS);
 }
@@ -47,9 +51,7 @@ const updateGistData = async (params, data) => {
 
         const response = await fetch(`${GIST_ENDPOINT}${params.id}`, {
             method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${GH_PAT}`
-            },
+            HEADERS,
             body: JSON.stringify(gist)
         });
 
@@ -64,13 +66,10 @@ const fetchGistData = async (params) => {
     try {
         const response = await fetch(`${GIST_ENDPOINT}${params.id}?timestamp=${new Date().getTime()}`, {
             method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${GH_PAT}`
-            }
+            HEADERS
         });
         const body = await response.json();
-        const json = body.files[params.file].content;
-        return JSON.parse(json);
+        return JSON.parse(body.files[params.file].content);
     } catch (error) {
         console.error(`Error fetching ${params.label}: `, error);
     }
