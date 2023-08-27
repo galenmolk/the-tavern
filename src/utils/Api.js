@@ -1,4 +1,3 @@
-const GH_PAT = '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';
 const GIST_ENDPOINT = 'https://api.github.com/gists/';
 
 const CHARACTERS_ID = '12953c4c94be8897997bc3746fd82be9';
@@ -17,10 +16,6 @@ const ABILITY_PARAMS = {
     id: ABILITIES_ID,
     file: ABILITIES_FILE,
     label: 'abilities'
-}
-
-const HEADERS = {
-    'Authorization': `Bearer ${GH_PAT}`
 }
 
 const fetchCharacters = async () => {
@@ -51,7 +46,9 @@ const updateGistData = async (params, data) => {
 
         const response = await fetch(`${GIST_ENDPOINT}${params.id}`, {
             method: 'POST',
-            HEADERS,
+            headers: {
+                'Authorization': `Bearer ${process.env.REACT_APP_GHPAT}`
+            },
             body: JSON.stringify(gist)
         });
 
@@ -61,15 +58,18 @@ const updateGistData = async (params, data) => {
         console.error(`Error updating ${params.label}: `, error);
     }
 }
-
 const fetchGistData = async (params) => {
+
     try {
         const response = await fetch(`${GIST_ENDPOINT}${params.id}?timestamp=${new Date().getTime()}`, {
             method: 'GET',
-            HEADERS
+            headers: {
+                'Authorization': `Bearer ${process.env.REACT_APP_GHPAT}`
+            }
         });
         const body = await response.json();
-        return JSON.parse(body.files[params.file].content);
+        const json = body.files[params.file].content;
+        return JSON.parse(json);
     } catch (error) {
         console.error(`Error fetching ${params.label}: `, error);
     }

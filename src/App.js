@@ -11,11 +11,11 @@ function App() {
     return (
             <Router>
                 <Routes>
-                    <Route path='/' element={
+                    <Route path='/the-tavern' element={
                         editingCharacter ? <CharacterEditor/> : <CharacterList />
                     } />
 
-                    <Route path='/abilities' element={
+                    <Route path='/the-tavern/abilities' element={
                         <AbilitySelector />
                     }
                     />
