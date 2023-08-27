@@ -1,27 +1,33 @@
-import { FaEdit, FaTimes } from 'react-icons/fa'
+import { FaEdit } from 'react-icons/fa'
 import { useContext } from 'react'
 import StatLabel from './shared/StatLabel'
 import CharacterContext from '../context/CharacterContext'
+import EditButton from './shared/EditButton'
+import DeleteButton from './shared/DeleteButton'
 
 function CharacterItem({ character }) {
-    const { setEditingCharacter } = useContext(CharacterContext)
+    const { setEditingCharacter, deleteCharacter } = useContext(CharacterContext)
 
     const handleEdit = () => {
-      setEditingCharacter(character)
+      setEditingCharacter(JSON.parse(JSON.stringify(character)));
+    }
+
+    const handleDelete = () => {
+      console.log('deleting ' + character.name)
+      deleteCharacter(character.id);
     }
 
     return (
-      <div className='card'>
-        <div>
-          <h3 className='horizontal padding-right'>{character.name}</h3>
-          <button className='horizontal padding-right' onClick={handleEdit}><b>Edit</b><FaEdit/></button>
-        </div>
-        <div className='character-stats'>
-          <StatLabel label='Health' value={character.health}/>
-          <StatLabel label='Defense' value={character.defense}/>
-          <StatLabel label='Speed' value={character.speed}/>
-          <StatLabel label='Abilities' value={character.abilities.length}/>
-        </div>
+      <div className='item character'>
+          <div className="title">{character.name}</div>
+          <div className='stats-and-edit'>
+            <StatLabel type='health' value={character.health}/>
+            <StatLabel type='defense' value={character.defense}/>
+            <StatLabel type='speed' value={character.speed}/>
+            <StatLabel type='abilities' value={character.abilityIds.length}/>
+            <EditButton onClick={handleEdit}/>
+            <DeleteButton onClick={handleDelete}/>
+          </div>
       </div>
   )
 }

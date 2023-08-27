@@ -10,9 +10,14 @@ export const AbilityProvider = ({children}) => {
         return abilities.filter((a) => abilityIds.includes(a.id));
     }
 
+    const updateAbility = (id, updatedAbility) => {
+        setAbilities(abilities.map((a) => a.id === id ? updatedAbility : a));
+    }
+
     return <AbilityContext.Provider value = {{
             abilities,
             getAbilities,
+            updateAbility
         }}
         >
             {children}

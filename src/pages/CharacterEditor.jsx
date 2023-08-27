@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react'
+import AbilityItem from '../components/AbilityItem'
 import InputField from '../components/shared/InputField'
 import AbilityContext from '../context/AbilityContext'
 import CharacterContext from '../context/CharacterContext'
@@ -7,100 +8,111 @@ function CharacterEditor() {
     const { getAbilities } = useContext(AbilityContext)
     const { setEditingCharacter, editingCharacter, updateCharacter } = useContext(CharacterContext)
 
-    const [modifiedCharacter, setModifiedCharacter] = useState(editingCharacter)
+    const [ name, setName ] = useState(editingCharacter.name)
+    const [ health, setHealth ] = useState(editingCharacter.health)
+    const [ defense, setDefense ] = useState(editingCharacter.defense)
+    const [ speed, setSpeed ] = useState(editingCharacter.speed)
+    const [ abilityIds, setAbilityIds ] = useState(editingCharacter.abilityIds)
 
-    const handleSubmit = (event) => {
-        event.preventDefault()
+    const renderGlobalButtons = () => {
+        return (
+        <div className='button-panel'>
+            <button className='button back' onClick={handleBack}>Back</button>
+            <button className='button reset' onClick={handleReset}>Reset</button>
+            <button className='button save' onClick={handleSave}>Save</button>
+        </div>);
+    }
 
-        const c = modifiedCharacter;
-        c.id = editingCharacter.id;
-
-        updateCharacter(editingCharacter.id, c)
+    const handleBack = () => {
         setEditingCharacter(null);
     }
 
-    const setName = (name) => {
-        const c = modifiedCharacter;
-        c.name = name;
-        setModifiedCharacter(c);
+    const handleReset = () => {
+        console.log('reset')
+        setName(editingCharacter.name);
+        setHealth(editingCharacter.health);
+        setDefense(editingCharacter.defense);
+        setSpeed(editingCharacter.speed);
+        setAbilityIds(editingCharacter.abilityIds);
     }
 
-    const setHealth = (health) => {
-        const c = modifiedCharacter;
-        c.health = health;
-        setModifiedCharacter(c);
+    const handleSave = () => {
+        const updatedCharacter = {
+            ...editingCharacter,
+            name,
+            health,
+            defense,
+            abilityIds
+        }
+        updateCharacter(updatedCharacter)
+        setEditingCharacter(null);
     }
 
-    const setDefense = (defense) => {
-        const c = modifiedCharacter;
-        c.defense = defense;
-        setModifiedCharacter(c);
+    const handleNameChange = (name) => {
+        setName(name);
     }
 
-    const setSpeed = (speed) => {
-        const c = modifiedCharacter;
-        c.speed = speed;
-        setModifiedCharacter(c);
+    const handleHealthChange = (health) => {
+        setHealth(health);
     }
 
-    const setAbilities = (abilities) => {
-        const c = modifiedCharacter;
-        c.abilities = abilities;
-        setModifiedCharacter(c);
+    const handleDefenseChange = (defense) => {
+        setDefense(defense);
+    }
+
+    const handleSpeedChange = (speed) => {
+        setSpeed(speed);
+    }
+
+    const handleAbilitiesChanged = (abilities) => {
+        const c = editingCharacter;
+        c.abilityIds = abilities;
+        setEditingCharacter(c);
+    }
+
+    const removeAbility = (idToRemove) => {
+        const newAbilityIds = abilityIds.filter((abilityId) => abilityId !== idToRemove);
+        setAbilityIds(newAbilityIds);
     }
 
     return (
         <>
-            <form onSubmit={handleSubmit}>
-                <InputField 
-                    name={'Name'}
-                    value={modifiedCharacter.name} 
-                    handleChange={(e) => setName(e.target.value)}
-                    type='text'
-                    required={true}
-                />
-                <InputField 
-                    name={'Health'}
-                    value={modifiedCharacter.health} 
-                    handleChange={(e) => setHealth(e.target.value)} 
-                    type='number'
-                    min="0"
-                    required={true}
-                />
-                <InputField 
-                    name={'Defense'}
-                    value={modifiedCharacter.defense} 
-                    handleChange={(e) => setDefense(e.target.value)}
-                    type='number'
-                    min="0"
-                    required={true}
-                />
-                <InputField 
-                    name={'Speed'}
-                    value={modifiedCharacter.speed} 
-                    handleChange={(e) => setSpeed(e.target.value)}
-                    type='number'
-                    min="0"
-                    required={true}
-                />
-                <ul>
-                {getAbilities(modifiedCharacter.abilities).map((ability, index) => {
-                return (
-                    <li key={index}>
-                        <div className="card">
-                            <input 
-                                id={index}
-                                type="checkbox"
-                            />
-                            {' '}
-                            <label htmlFor={index}>{ability.name}</label>
-                        </div>
-                    </li>
-                );
+            {renderGlobalButtons()}
+            <InputField 
+                name={'Name'}
+                value={name} 
+                handleChange={(e) => handleNameChange(e.target.value)}
+                type='text'
+                required={true}
+            />
+            <InputField 
+                name={'Health'}
+                value={health} 
+                handleChange={(e) => handleHealthChange(e.target.value)} 
+                type='number'
+                min="0"
+                required={true}
+            />
+            <InputField 
+                name={'Defense'}
+                value={defense} 
+                handleChange={(e) => handleDefenseChange(e.target.value)}
+                type='number'
+                min="0"
+                required={true}
+            />
+            <InputField 
+                name={'Speed'}
+                value={speed} 
+                handleChange={(e) => handleSpeedChange(e.target.value)}
+                type='number'
+                min="0"
+                required={true}
+            />
+            {getAbilities(abilityIds).map((ability, index) => {
+                return (<AbilityItem key={index} ability={ability} onRemove={removeAbility}/>);
             })}
-        </ul>
-                <button type='submit'>Save</button>
-            </form>
+            {renderGlobalButtons()}
         </>
     )
 }

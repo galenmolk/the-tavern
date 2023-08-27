@@ -2,10 +2,9 @@ function InputField({ name, value, handleChange, type, min, max, required }) {
     return (
         <div>
             <label htmlFor="inputField">{name}:</label>
-            <br/>
             <input 
                 id="inputField" 
-                defaultValue={value}
+                value={value}
                 onChange={handleChange}
                 placeholder={name}
                 type={type}

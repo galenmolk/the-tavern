@@ -1,0 +1,124 @@
+body {
+    font-family: 'Courier', sans-serif;
+    line-height: 2.0;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.down-caret {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 7.5px 0px 7.5px;
+    border-color: #333 transparent transparent transparent;
+} 
+
+.up-caret {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0px 7.5px 10px 7.5px;
+    border-color: transparent transparent #333 transparent;
+}
+
+.hor {
+    display: inline-block;
+    align-items: center;
+    gap: 20px;
+}
+
+.ability-card {
+    background-color: beige;
+    width: 400px;
+    padding: 10px;
+    margin: 20px;
+}
+
+.title {
+    font-size: medium;
+    font-weight: bold;
+}
+
+.item {
+    border-radius: 10px;
+    padding-left: 0rem;
+    padding-right: 0rem;
+    margin: 0.3rem;
+}
+
+.item.character {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgb(158, 190, 215);
+    width: 45rem;
+    gap: 1rem;
+    padding: 0.5rem;
+}
+
+.stats-and-edit {
+    display: flex;
+    gap: 1rem;
+}
+
+.stat {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.item.ability {
+    background-color: rgb(158, 190, 215);
+}
+
+.hor.ability-item {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 20px
+}
+
+.button-panel {
+    display: flex;
+    gap: 10px;
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.button.back {
+    background-color: #f1c40f;
+}
+
+.button.reset {
+    background-color: #e74c3c;
+}
+
+.button.save {
+    background-color: #2ecc71;
+}
+
+.button.edit {
+    background-color: wheat;
+}
+
+.button.delete {
+    background-color: tomato;
+}
+
+.button:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    transform: translateY(-2px);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}

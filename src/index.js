@@ -1,7 +1,8 @@
 import { createRoot } from 'react-dom/client'
 import React from 'react'
 import App from './App'
-import './index.css'
+import './css/index.css'
+import './css/shared/icon.css'
 import { CharacterProvider } from './context/CharacterContext';
 import { AbilityProvider } from './context/AbilityContext';
 

@@ -1,6 +1,6 @@
 import { createContext, useState } from "react"
 import CharacterData from "../data/CharacterData"
-import { NewCharacter } from "../utils";
+import { NewCharacter } from "../utils/NewCharacter";
 
 const CharacterContext = createContext();
 
@@ -12,8 +12,12 @@ export const CharacterProvider = ({ children }) => {
         setCharacters([NewCharacter(), ...characters]);
     }
 
-    const updateCharacter = (id, updatedCharacter) => {
-        setCharacters(characters.map((c) => c.id === id ? updatedCharacter : c));
+    const updateCharacter = (updatedCharacter) => {
+        setCharacters(characters.map((c) => c.id === updatedCharacter.id ? updatedCharacter : c));
+    }
+
+    const deleteCharacter = (id) => {
+        setCharacters(characters.filter((c) => c.id !== id));
     }
 
     return <CharacterContext.Provider value ={{
@@ -22,7 +26,8 @@ export const CharacterProvider = ({ children }) => {
         setEditingCharacter,
         setCharacters,
         addCharacter,
-        updateCharacter
+        updateCharacter,
+        deleteCharacter
     }}>
         {children}
     </CharacterContext.Provider>

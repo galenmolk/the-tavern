@@ -6,10 +6,6 @@ function CharacterList() {
    
     const { characters, addCharacter } = useContext(CharacterContext)
 
-    if (!characters || characters.length === 0) {
-        return <p>No Characters</p>
-    }
-
     return (
         <div>
             <button onClick={addCharacter}><b>NEW CHARACTER</b></button>

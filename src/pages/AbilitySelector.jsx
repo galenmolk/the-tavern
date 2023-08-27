@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import AbilityCard from "../components/AbilityCard";
 import AbilityContext from "../context/AbilityContext";
 
 export default function AbilitySelector() {
@@ -9,14 +10,7 @@ export default function AbilitySelector() {
             {abilities.map((ability, index) => {
                 return (
                     <li key={index}>
-                        <div className="card">
-                            <input 
-                                id={index}
-                                type="checkbox"
-                            />
-                            {' '}
-                            <label htmlFor={index}>{ability.name}</label>
-                        </div>
+                        <AbilityCard ability={ability}/>
                     </li>
                 );
             })}

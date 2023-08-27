@@ -12,6 +12,6 @@ export function NewCharacter() {
         health: DEFAULT_HEALTH,
         defense: DEFAULT_DEFENSE,
         speed: DEFAULT_SPEED,
-        abilities: []
+        abilityIds: []
     }
 }

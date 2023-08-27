@@ -1,7 +1,10 @@
-function StatLabel({label, value}) {
-    return <div className='stat-label horizontal'>
-                <h3>{label}: {value}</h3>
-            </div>
+import { Icon } from "./Icon"
+
+function StatLabel({type, value}) {
+   return <div className="stat">
+        <Icon icon={type}/>
+        <span>{value}</span>
+    </div>
 }
 
 export default StatLabel
