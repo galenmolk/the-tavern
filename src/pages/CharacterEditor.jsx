@@ -28,7 +28,6 @@ function CharacterEditor() {
     }
 
     const handleReset = () => {
-        console.log('reset')
         setName(editingCharacter.name);
         setHealth(editingCharacter.health);
         setDefense(editingCharacter.defense);
@@ -42,6 +41,7 @@ function CharacterEditor() {
             name,
             health,
             defense,
+            speed,
             abilityIds
         }
         updateCharacter(updatedCharacter)

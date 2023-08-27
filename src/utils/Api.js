@@ -1,3 +1,6 @@
+import { sillyDecrypt } from "./SillyCryptography";
+
+const GH_PAT = sillyDecrypt('jks_g2dRP8NxC9JVNX15Ng57d1M8pnIiYz458qCT');
 const GIST_ENDPOINT = 'https://api.github.com/gists/';
 
 const CHARACTERS_ID = '12953c4c94be8897997bc3746fd82be9';
@@ -47,7 +50,7 @@ const updateGistData = async (params, data) => {
         const response = await fetch(`${GIST_ENDPOINT}${params.id}`, {
             method: 'POST',
             headers: {
-                'Authorization': `Bearer ${process.env.REACT_APP_GHPAT}`
+                'Authorization': `Bearer ${GH_PAT}`
             },
             body: JSON.stringify(gist)
         });
@@ -64,7 +67,7 @@ const fetchGistData = async (params) => {
         const response = await fetch(`${GIST_ENDPOINT}${params.id}?timestamp=${new Date().getTime()}`, {
             method: 'GET',
             headers: {
-                'Authorization': `Bearer ${process.env.REACT_APP_GHPAT}`
+                'Authorization': `Bearer ${GH_PAT}`
             }
         });
         const body = await response.json();

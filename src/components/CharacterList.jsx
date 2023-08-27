@@ -1,6 +1,7 @@
 import CharacterItem from './CharacterItem'
 import { useContext } from 'react'
 import CharacterContext from '../context/CharacterContext'
+import SaveJsonButton from './shared/SaveJsonButton'
 
 function CharacterList() {
     const { characters, addCharacter } = useContext(CharacterContext)
@@ -18,6 +19,7 @@ function CharacterList() {
 
     return (
         <div>
+            <SaveJsonButton name='characters' data={characters}/>
             <button onClick={addCharacter}><b>NEW CHARACTER</b></button>
             {characters === null ? <p>Loading characters...</p> : displayCharacters()}
         </div>
