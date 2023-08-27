@@ -6,6 +6,8 @@ import './css/shared/icon.css'
 import { CharacterProvider } from './context/CharacterContext';
 import { AbilityProvider } from './context/AbilityContext';
 
+const cors = require('cors');
+
 const root = createRoot(document.getElementById('root'));
 
 root.render(
