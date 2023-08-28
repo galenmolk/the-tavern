@@ -1,9 +1,8 @@
-import { FaEdit } from 'react-icons/fa'
 import { useContext } from 'react'
-import StatLabel from './shared/StatLabel'
-import CharacterContext from '../context/CharacterContext'
-import EditButton from './shared/EditButton'
-import DeleteButton from './shared/DeleteButton'
+import StatLabel from '../shared/StatLabel'
+import CharacterContext from '../../context/CharacterContext'
+import EditButton from '../shared/EditButton'
+import DeleteButton from '../shared/DeleteButton'
 
 function CharacterItem({ character }) {
     const { setEditingCharacter, deleteCharacter } = useContext(CharacterContext)

@@ -9,12 +9,12 @@ export const CharacterProvider = ({ children }) => {
     const [editingCharacter, setEditingCharacter] = useState(null);
 
     useEffect(() => {
-        const getChars = async () => {
-            const characterJson = await fetchCharacters();
-            setCharacters(characterJson);
+        const refresh = async () => {
+            const freshCharacters = await fetchCharacters();
+            setCharacters(freshCharacters);
         }
 
-        getChars();
+        refresh();
     }, []);
 
     const updateAndPost = async (chars) => {
@@ -28,12 +28,12 @@ export const CharacterProvider = ({ children }) => {
     }
 
     const updateCharacter = (updatedCharacter) => {
-        const newChars = characters.map((c) => c.id === updatedCharacter.id ? updatedCharacter : c);
+        const newChars = characters.map(c => c.id === updatedCharacter.id ? updatedCharacter : c);
         updateAndPost(newChars);
     }
 
     const deleteCharacter = (id) => {
-        const newChars = characters.filter((c) => c.id !== id);
+        const newChars = characters.filter(c => c.id !== id);
         updateAndPost(newChars);
     }
 
@@ -41,7 +41,6 @@ export const CharacterProvider = ({ children }) => {
         characters,
         editingCharacter,
         setEditingCharacter,
-        setCharacters,
         addCharacter,
         updateCharacter,
         deleteCharacter

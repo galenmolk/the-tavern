@@ -3,6 +3,7 @@ import React from 'react'
 import App from './App'
 import './css/index.css'
 import './css/shared/icon.css'
+import './css/shared/nav-bar.css'
 import { CharacterProvider } from './context/CharacterContext';
 import { AbilityProvider } from './context/AbilityContext';
 

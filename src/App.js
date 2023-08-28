@@ -1,25 +1,15 @@
-import CharacterList from './components/CharacterList'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import CharacterEditor from './pages/CharacterEditor'
-import { useContext } from 'react'
-import AbilitySelector from './pages/AbilitySelector'
-import CharacterContext from './context/CharacterContext'
+import Home from './pages/Home'
+import Characters from './pages/Characters'
+import Abilities from './pages/Abilities'
 
 function App() {
-    const { editingCharacter } = useContext(CharacterContext)
-
     return (
             <Router>
                 <Routes>
-                    <Route path='/the-tavern' element={
-                        editingCharacter ? <CharacterEditor/> : <CharacterList />
-                    } />
-
-                    <Route path='/the-tavern/abilities' element={
-                        <AbilitySelector />
-                    }
-                    />
-                    
+                    <Route path='/the-tavern' element={<Home/>}/>
+                    <Route path='/the-tavern/characters' element={<Characters />} />
+                    <Route path='/the-tavern/abilities' element={<Abilities/>} />
                 </Routes>
             </Router>
     )

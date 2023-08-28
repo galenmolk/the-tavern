@@ -2,7 +2,7 @@ const CharacterData = [
     {
         "id": 1,
         "name": "Aggo",
-        "nameButtonColor": "#A0F7FF",
+        "colorHex": "#A0F7FF",
         "defense": 22,
         "health": 13,
         "speed": 6,
@@ -13,7 +13,7 @@ const CharacterData = [
       {
         "id": 2,
         "name": "Dioasdfasdfasdfasdf",
-        "nameButtonColor": "#A0A0FF",
+        "colorHex": "#A0A0FF",
         "defense": 14,
         "health": 10,
         "speed": 6,
@@ -24,7 +24,7 @@ const CharacterData = [
       {
         "id": 3,
         "name": "Kazak",
-        "nameButtonColor": "#FFA0C3",
+        "colorHex": "#FFA0C3",
         "defense": 16,
         "health": 10,
         "speed": 6,

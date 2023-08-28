@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
-import AbilityContext from "../context/AbilityContext";
-import InputField from "./shared/InputField";
+import AbilityContext from "../../context/AbilityContext";
+import InputField from "../shared/InputField";
 
 export default function AbilityCard({ ability }) {
     const [modifiedAbility, setModifiedAbility] = useState(ability);

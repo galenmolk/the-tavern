@@ -1,11 +1,11 @@
 import { useContext, useState } from 'react'
-import AbilityItem from '../components/AbilityItem'
-import InputField from '../components/shared/InputField'
-import AbilityContext from '../context/AbilityContext'
-import CharacterContext from '../context/CharacterContext'
+import AbilityItem from '../Abilities/AbilityItem'
+import InputField from '../shared/InputField'
+import AbilityContext from '../../context/AbilityContext'
+import CharacterContext from '../../context/CharacterContext'
 
 function CharacterEditor() {
-    const { getAbilities } = useContext(AbilityContext)
+    const { getAbilitiesForIds } = useContext(AbilityContext)
     const { setEditingCharacter, editingCharacter, updateCharacter } = useContext(CharacterContext)
 
     const [ name, setName ] = useState(editingCharacter.name)
@@ -109,7 +109,7 @@ function CharacterEditor() {
                 min="0"
                 required={true}
             />
-            {getAbilities(abilityIds).map((ability, index) => {
+            {getAbilitiesForIds(abilityIds).map((ability, index) => {
                 return (<AbilityItem key={index} ability={ability} onRemove={removeAbility}/>);
             })}
             {renderGlobalButtons()}

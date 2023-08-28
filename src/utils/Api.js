@@ -78,4 +78,9 @@ const fetchGistData = async (params) => {
     }
 }
 
-export { fetchCharacters, updateCharacters };
+export { 
+    fetchCharacters, 
+    updateCharacters, 
+    fetchAbilities, 
+    updateAbilities 
+};
