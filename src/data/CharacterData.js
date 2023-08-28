@@ -12,7 +12,7 @@ const CharacterData = [
       },
       {
         "id": 2,
-        "name": "Dioasdfasdfasdfasdf",
+        "name": "Dio",
         "colorHex": "#A0A0FF",
         "defense": 14,
         "health": 10,

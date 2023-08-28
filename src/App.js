@@ -5,11 +5,11 @@ import Abilities from './pages/Abilities'
 
 function App() {
     return (
-            <Router>
+            <Router basename="/the-tavern">
                 <Routes>
-                    <Route path='/the-tavern' element={<Home/>}/>
-                    <Route path='/the-tavern/characters' element={<Characters />} />
-                    <Route path='/the-tavern/abilities' element={<Abilities/>} />
+                    <Route path='/' element={<Home/>}/>
+                    <Route path='/characters' element={<Characters />} />
+                    <Route path='/abilities' element={<Abilities/>} />
                 </Routes>
             </Router>
     )
