@@ -6,7 +6,7 @@ const AbilityContext = createContext()
 
 export function AbilityProvider({ children }) {
     const [abilities, setAbilities] = useState([])
-    const [editingAbility, setEditingAbility] = useState({});
+    const [editingAbility, setEditingAbility] = useState(null);
 
     useEffect(() => {
         refresh();
@@ -23,8 +23,18 @@ export function AbilityProvider({ children }) {
     }
 
     const addAbility = () => {
-        const newAbs = [NewAbility(), ...abilities];
+        const newAb = NewAbility();
+        const newAbs = [newAb, ...abilities];
         updateAndPost(newAbs);
+        beginEdit(newAb);
+    }
+
+    const beginEdit = (ability) => {
+        setEditingAbility(JSON.parse(JSON.stringify(ability)));
+    }
+
+    const endEdit = () => {
+        setEditingAbility(null);
     }
 
     const updateAbility = (updatedAbility) => {
@@ -32,8 +42,8 @@ export function AbilityProvider({ children }) {
         updateAndPost(newAbs);
     }
 
-    const deleteAbility = (id) => {
-        const newAbs = abilities.filter(a => a.id !== id);
+    const deleteAbility = (ability) => {
+        const newAbs = abilities.filter(a => a.id !== ability.id);
         updateAndPost(newAbs);
     }
 
@@ -54,7 +64,8 @@ export function AbilityProvider({ children }) {
     return <AbilityContext.Provider value = {{
             abilities,
             editingAbility,
-            setEditingAbility,
+            beginEdit,
+            endEdit,
             getAbilitiesForIds,
             getCooldownOptions,
             addAbility,

@@ -3,8 +3,9 @@ import AbilityItem from '../Abilities/AbilityItem'
 import InputField from '../shared/InputField'
 import { AbilityContext } from '../../context/AbilityContext'
 import CharacterContext from '../../context/CharacterContext'
+import UnloadConfirmation from '../shared/UnloadConfirmation'
 
-function CharacterEditor() {
+export default function CharacterEditor() {
     const { getAbilitiesForIds } = useContext(AbilityContext)
     const { setEditingCharacter, editingCharacter, updateCharacter } = useContext(CharacterContext)
 
@@ -76,7 +77,7 @@ function CharacterEditor() {
     }
 
     return (
-        <>
+        <UnloadConfirmation>
             {renderGlobalButtons()}
             <InputField 
                 name={'Name'}
@@ -113,8 +114,6 @@ function CharacterEditor() {
                 return (<AbilityItem key={index} ability={ability} onRemove={removeAbility}/>);
             })}
             {renderGlobalButtons()}
-        </>
+        </UnloadConfirmation>
     )
 }
-
-export default CharacterEditor

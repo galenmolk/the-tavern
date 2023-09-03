@@ -4,6 +4,9 @@ const DEFAULT_ABILITY = {
     name: 'New Ability',
     colorHex: '#FFFFFF',
     description: "",
+    cooldown: 0,
+    isPassive: false,
+    isInterrupt: false
 };
 
 export function NewAbility() {

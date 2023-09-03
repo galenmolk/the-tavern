@@ -12,7 +12,6 @@ function CharacterItem({ character }) {
     }
 
     const handleDelete = () => {
-      console.log('deleting ' + character.name)
       deleteCharacter(character.id);
     }
 

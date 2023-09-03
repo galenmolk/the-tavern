@@ -11,9 +11,8 @@ const booleanOptions = [
     { value: false, label: 'No' }
 ];
 
-export default function AbilitySearchBox() {
+export default function AbilitySearchBox( { sideControls }) {
     const { abilities, getCooldownOptions } = useContext(AbilityContext);
-
     const [ nameFilter, setNameFilter ] = useState("")
     const [ descriptionFilter, setDescriptionFilter ] = useState("")
     const [ cooldownFilter, setCooldownFilter ] = useState([])
@@ -71,6 +70,7 @@ export default function AbilitySearchBox() {
     return (
         <>
         <div className='search-row'>
+            <div></div>
             <div className='search-header'>NAME</div>
             <div className='search-header'>DESCRIPTION</div>
             <div className='search-header'>COOLDOWN</div>
@@ -78,14 +78,15 @@ export default function AbilitySearchBox() {
             <div className='search-header'>INTERRUPT</div>
         </div>
         <div className='search-row'>
-            <input type="text" onChange={onNameFilterChange}></input>
-            <input type="text" onChange={onDescriptionFilterChange}></input>
-            <Select options={getCooldownFilterOptions()} placeholder={'Any'} isMulti onChange={onCooldownFilterChange}/>
-            <Select options={booleanOptions} defaultValue={defaultBooleanOption} onChange={onPassiveFilterChange}/>
-            <Select options={booleanOptions} defaultValue={defaultBooleanOption} onChange={onInterruptFilterChange}/>
+            <div></div>
+            <input className='search-filter' type="text" onChange={onNameFilterChange}></input>
+            <input className='search-filter' type="text" onChange={onDescriptionFilterChange}></input>
+            <div className='search-filter'><Select options={getCooldownFilterOptions()} placeholder={'Any'} isMulti onChange={onCooldownFilterChange}/></div>
+            <div className='search-filter'><Select options={booleanOptions} defaultValue={defaultBooleanOption} onChange={onPassiveFilterChange}/></div>
+            <div className='search-filter'><Select options={booleanOptions} defaultValue={defaultBooleanOption} onChange={onInterruptFilterChange}/></div>
         </div>
         <div>
-            { abilities.filter(a => abilityFilter(a)).map((a, i) => <AbilitySearchItem ability={a} key={i}/>)}
+            { abilities.filter(a => abilityFilter(a)).map((a, i) => <AbilitySearchItem ability={a} key={i} sideControls={sideControls}/>)}
         </div>
         </>
     );

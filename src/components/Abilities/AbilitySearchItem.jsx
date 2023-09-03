@@ -1,30 +1,39 @@
 import { useState } from "react"
 
-const charLimit = 74;
+const charLimit = 58;
 
-export default function AbilitySearchItem( {ability} ) {
+export default function AbilitySearchItem( {ability, sideControls } ) {
     const [ isExpanded, setIsExpanded ] = useState(false);
-    
-    const getDescription = () => {
-        const d = ability.description;
 
-        if (isExpanded || d.length <= charLimit + 3) {
-            return d;
+    const isSpillover = () => {
+        return ability.description.length > charLimit + 3;
+    }
+
+    const getDescription = () => {
+        if (isExpanded || !isSpillover()) {
+            return ability.description;
         }
 
         return ability.description.substring(0, charLimit) + "...";
     }
 
-    const handleDescClick = (e) => {
-        e.preventDefault();
+    const getDescriptionToggleText = () => {
+        return isExpanded ? "Hide" : "Show"; 
+    }
+
+    const handleDescriptionToggleClick = () => {
         setIsExpanded(!isExpanded);
     }
 
     return <div className="search-row">
+        {sideControls(ability)}
         <div className="search-item">{ability.name}</div>
-        <div className="search-item" onClick={handleDescClick}>{getDescription()}</div>
-        <div className="search-item">{ability.cooldown}</div>
-        <div className="search-item">{ability.isPassive ? "Yes" : ""}</div>
-        <div className="search-item">{ability.isInterrupt ? "Yes" : ""}</div>
+        <div className="search-item" >
+                {getDescription()}
+                {isSpillover() ? <button onClick={handleDescriptionToggleClick}>{getDescriptionToggleText()}</button> : <></>}
+        </div>
+        <div className="search-item" style={{textAlign:"center"}}>{ability.cooldown}</div>
+        <div className="search-item">{ability.isPassive ? "YES" : ""}</div>
+        <div className="search-item">{ability.isInterrupt ? "YES" : ""}</div>
     </div>
 }

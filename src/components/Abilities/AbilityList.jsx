@@ -1,32 +1,58 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import NavBar from "../shared/NavBar";
 import SaveJsonButton from "../shared/SaveJsonButton";
 import { AbilityContext } from '../../context/AbilityContext'
-import AbilityItem from './AbilityItem'
+import AbilitySearchBox from "./AbilitySearchBox";
+import ConfirmationModal from "../shared/ConfirmationModal";
 
 export default function AbilityList() {
-    const { abilities, addAbility, getAbilitiesForIds } = useContext(AbilityContext);
+    const { abilities, addAbility, beginEdit, deleteAbility } = useContext(AbilityContext);
+    const [ deletingAbility, setDeletingAbility ] = useState(null);
 
-    const displayAbilities = () => {
-        console.log('display abs: ' +  abilities.length)
-        return abilities.map(
-            (ability, index) => (
-                <AbilityItem 
-                    key={index}
-                    ability={ability}
-                />
-            )
+    const handleEdit = (ability) => {
+        beginEdit(ability);
+    }
+
+    const handleTryDelete = (ability) => {
+        setDeletingAbility(ability);
+    }
+
+    const handleConfirmDelete = () => {
+        deleteAbility(deletingAbility);
+        setDeletingAbility(null);
+    }
+
+    const handleCancelDelete = () => {
+        setDeletingAbility(null);
+    }
+
+    const getDeletePrompt = () => {
+        return `Delete ability "${deletingAbility.name}"? This cannot be undone.`;
+    }
+
+    const sideControls = (ability) => {
+        return (
+            <div>
+                <button style={{fontWeight:"bold"}} onClick={() => handleEdit(ability)}>Edit</button>
+                <button style={{color:"red"}} onClick={() => handleTryDelete(ability)}>Delete</button>
+            </div>
         );
-    };
+    }
 
     return (
         <>
-            <NavBar />
-            <div>
-                <SaveJsonButton name='abilities' data={abilities} />
-                <button onClick={addAbility}><b>NEW ABILITY</b></button>
-                {abilities ? displayAbilities() : <></>}
-            </div>            
+        <NavBar />
+        <br />
+        <div>
+            <button onClick={addAbility}><b>NEW ABILITY</b></button>
+            <AbilitySearchBox sideControls={sideControls}/>
+        </div>
+        {deletingAbility !== null ? <ConfirmationModal 
+            prompt={getDeletePrompt()} 
+            onYes={handleConfirmDelete} 
+            onNo={handleCancelDelete} /> : null}
+        <br />
+        <SaveJsonButton name='abilities' data={abilities} />
         </>
     );
 }

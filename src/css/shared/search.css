@@ -1,6 +1,6 @@
 .search-row {
     display: grid;
-    grid-template-columns: 0.2fr 0.5fr 0.1fr 0.1fr 0.1fr;
+    grid-template-columns: 6rem 15rem 40rem 15rem 6rem 6rem;
     border: 0.1rem solid #4b4b4b; 
 }
 
@@ -9,9 +9,15 @@
     background-color: #cdcdcd;
     border-right: 0.1rem solid #4b4b4b;
     border-left: 0.1rem solid #4b4b4b;
+}
 
+.search-filter {
+    border-right: 0.1rem solid #4b4b4b;
+    border-left: 0.1rem solid #4b4b4b;
 }
 
 .search-header {
     font-weight: bold;
+    border-right: 0.1rem solid #4b4b4b;
+    border-left: 0.1rem solid #4b4b4b;
 }   
