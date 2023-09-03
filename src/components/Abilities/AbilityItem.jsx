@@ -1,4 +1,6 @@
 import { useState } from "react";
+import EditButton from "../shared/EditButton";
+import DeleteButton from "../shared/DeleteButton";
 
 export default function AbilityItem({ ability, onRemove }) {
     const [ showDesc, setShowDesc ] = useState(false);
@@ -31,7 +33,8 @@ export default function AbilityItem({ ability, onRemove }) {
             <div className="hor ability-item" onClick={() => setShowDesc(!showDesc)}>
                 <p className="title">{getTitle()}</p>
                 {getDropdown()}
-                <button onClick={() => onRemove(ability.id)}>Remove</button>
+                <EditButton />
+                <DeleteButton />
             </div>
             {showDesc ? <p>{ability.description}</p> : <></>}
         </div>

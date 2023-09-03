@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import NavBar from "../shared/NavBar";
 import SaveJsonButton from "../shared/SaveJsonButton";
-import AbilityContext from '../../context/AbilityContext'
+import { AbilityContext } from '../../context/AbilityContext'
 import AbilityItem from './AbilityItem'
 
 export default function AbilityList() {

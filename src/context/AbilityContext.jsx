@@ -4,18 +4,18 @@ import { NewAbility } from '../utils/NewAbility'
 
 const AbilityContext = createContext()
 
-export const AbilityProvider = ({ children }) => {
-    const [abilities, setAbilities] = useState(null)
-    const [editingAbility, setEditingAbility] = useState(null);
+export function AbilityProvider({ children }) {
+    const [abilities, setAbilities] = useState([])
+    const [editingAbility, setEditingAbility] = useState({});
 
     useEffect(() => {
-        const refresh = async () => {
-            const freshAbilities = await fetchAbilities();
-            setAbilities(freshAbilities)
-        }
-
         refresh();
     }, []);
+
+    const refresh = async () => {
+        const freshAbilities = await fetchAbilities();
+        setAbilities(freshAbilities);
+    }
 
     const updateAndPost = async (abs) => {
         await updateAbilities(abs);
@@ -41,11 +41,22 @@ export const AbilityProvider = ({ children }) => {
         return abilities.filter((a) => abilityIds.includes(a.id));
     }
 
+    const getCooldownOptions = () => {
+        return abilities.reduce((acc, next) => {
+            const cd = next.cooldown === undefined ? 0 : next.cooldown;
+            if (acc.indexOf(cd) === -1) {
+                acc.push(cd);
+            }
+            return acc;
+        }, []).sort((a, b) => a - b);
+    }
+
     return <AbilityContext.Provider value = {{
             abilities,
             editingAbility,
             setEditingAbility,
             getAbilitiesForIds,
+            getCooldownOptions,
             addAbility,
             updateAbility,
             deleteAbility
@@ -55,4 +66,4 @@ export const AbilityProvider = ({ children }) => {
         </AbilityContext.Provider>
 }
 
-export default AbilityContext
+export { AbilityContext };

@@ -4,6 +4,7 @@ import Characters from './pages/Characters'
 import Abilities from './pages/Abilities'
 
 function App() {
+
     return (
             <Router basename="/the-tavern">
                 <Routes>

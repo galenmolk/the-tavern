@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react'
 import AbilityItem from '../Abilities/AbilityItem'
 import InputField from '../shared/InputField'
-import AbilityContext from '../../context/AbilityContext'
+import { AbilityContext } from '../../context/AbilityContext'
 import CharacterContext from '../../context/CharacterContext'
 
 function CharacterEditor() {
