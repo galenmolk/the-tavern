@@ -4,15 +4,11 @@ import CharacterContext from '../../context/CharacterContext'
 import EditButton from '../shared/EditButton'
 import DeleteButton from '../shared/DeleteButton'
 
-function CharacterItem({ character }) {
-    const { setEditingCharacter, deleteCharacter } = useContext(CharacterContext)
+function CharacterItem({ character, tryDelete }) {
+    const { setEditingCharacter } = useContext(CharacterContext)
 
     const handleEdit = () => {
       setEditingCharacter(JSON.parse(JSON.stringify(character)));
-    }
-
-    const handleDelete = () => {
-      deleteCharacter(character.id);
     }
 
     return (
@@ -24,7 +20,7 @@ function CharacterItem({ character }) {
             <StatLabel type='speed' value={character.speed}/>
             <StatLabel type='abilities' value={character.abilityIds.length}/>
             <EditButton onClick={handleEdit}/>
-            <DeleteButton onClick={handleDelete}/>
+            <DeleteButton onClick={() => tryDelete(character)}/>
           </div>
       </div>
   )

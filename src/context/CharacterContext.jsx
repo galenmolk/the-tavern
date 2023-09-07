@@ -32,8 +32,8 @@ export const CharacterProvider = ({ children }) => {
         updateAndPost(newChars);
     }
 
-    const deleteCharacter = (id) => {
-        const newChars = characters.filter(c => c.id !== id);
+    const deleteCharacter = (character) => {
+        const newChars = characters.filter(c => c.id !== character.id);
         updateAndPost(newChars);
     }
 

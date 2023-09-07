@@ -47,6 +47,10 @@ export function AbilityProvider({ children }) {
         updateAndPost(newAbs);
     }
 
+    const getAbilityForId = (id) => {
+        return abilities.find(a => a.id === id);
+    }
+
     const getAbilitiesForIds = (abilityIds) => {
         return abilities.filter((a) => abilityIds.includes(a.id));
     }
@@ -67,6 +71,7 @@ export function AbilityProvider({ children }) {
             beginEdit,
             endEdit,
             getAbilitiesForIds,
+            getAbilityForId,
             getCooldownOptions,
             addAbility,
             updateAbility,

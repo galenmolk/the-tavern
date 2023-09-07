@@ -6,5 +6,5 @@ import CharacterList from '../components/Characters/CharacterList';
 export default function Characters() {
     const { editingCharacter } = useContext(CharacterContext)
 
-    return editingCharacter ? <CharacterEditor/> : <CharacterList />
+    return editingCharacter ? <CharacterEditor /> : <CharacterList />
 }

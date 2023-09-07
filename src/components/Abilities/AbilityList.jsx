@@ -47,12 +47,12 @@ export default function AbilityList() {
             <button onClick={addAbility}><b>NEW ABILITY</b></button>
             <AbilitySearchBox sideControls={sideControls}/>
         </div>
+        <SaveJsonButton name='abilities' data={abilities} />
         {deletingAbility !== null ? <ConfirmationModal 
             prompt={getDeletePrompt()} 
             onYes={handleConfirmDelete} 
             onNo={handleCancelDelete} /> : null}
         <br />
-        <SaveJsonButton name='abilities' data={abilities} />
         </>
     );
 }

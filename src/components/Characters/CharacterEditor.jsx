@@ -1,12 +1,15 @@
+import '../../css/character-editor.css'
 import { useContext, useState } from 'react'
-import AbilityItem from '../Abilities/AbilityItem'
 import InputField from '../shared/InputField'
 import { AbilityContext } from '../../context/AbilityContext'
 import CharacterContext from '../../context/CharacterContext'
 import UnloadConfirmation from '../shared/UnloadConfirmation'
+import MiniAbilityItem from '../Abilities/MiniAbilityItem'
+import AbilitySearchBox from '../Abilities/AbilitySearchBox'
+import { hover } from '@testing-library/user-event/dist/hover'
 
 export default function CharacterEditor() {
-    const { getAbilitiesForIds } = useContext(AbilityContext)
+    const { getAbilityForId } = useContext(AbilityContext)
     const { setEditingCharacter, editingCharacter, updateCharacter } = useContext(CharacterContext)
 
     const [ name, setName ] = useState(editingCharacter.name)
@@ -14,6 +17,8 @@ export default function CharacterEditor() {
     const [ defense, setDefense ] = useState(editingCharacter.defense)
     const [ speed, setSpeed ] = useState(editingCharacter.speed)
     const [ abilityIds, setAbilityIds ] = useState(editingCharacter.abilityIds)
+
+    const [ hoveringAbility, setHoveringAbility] = useState(null);
 
     const renderGlobalButtons = () => {
         return (
@@ -65,15 +70,55 @@ export default function CharacterEditor() {
         setSpeed(speed);
     }
 
-    const handleAbilitiesChanged = (abilities) => {
-        const c = editingCharacter;
-        c.abilityIds = abilities;
-        setEditingCharacter(c);
+    const handleAddAbility = (ability) => {
+        console.log('handleAddAbility ' + ability.name)
+        const newAbilityIds = [ability.id, ...abilityIds];
+        setAbilityIds(newAbilityIds);
     }
 
-    const removeAbility = (idToRemove) => {
-        const newAbilityIds = abilityIds.filter((abilityId) => abilityId !== idToRemove);
+    const abilityFilter = (ability) => {
+        return !abilityIds.includes(ability.id);
+    }
+
+    const handleRemoveAbility = (ability) => {
+        const newAbilityIds = abilityIds.filter((abilityId) => abilityId !== ability.id);
         setAbilityIds(newAbilityIds);
+    }
+
+    const sideControls = (ability) => {
+        return (
+            <div>
+                <button style={{fontWeight:"bold"}} onClick={() => handleAddAbility(ability)}>Add</button>
+            </div>
+        );
+    }
+
+    const handleMouseEnter = (ability) => {
+        console.log('enter')
+
+        setHoveringAbility(ability);
+    }
+
+    const handleMouseLeave = () => {
+        console.log('leave')
+        setHoveringAbility(null);
+    }
+
+    const getAbilityPreview = () => {
+        const preview = hoveringAbility === null ? {
+            name: "<NAME>",
+            cooldown: "<COOLDOWN>", 
+            description: "<DESCRIPTION>", 
+            isPassive: "<PASSIVE>", 
+            isInterrupt: "<INTERRUPT>" } : hoveringAbility;
+
+        return (
+            <div className='ability-preview'>
+                <p>{preview.name}</p>
+                <p>C: {preview.cooldown} / P: {preview.isPassive} / I: {preview.isInterrupt}</p>
+                <p>{preview.description}</p>
+            </div>
+        );
     }
 
     return (
@@ -110,10 +155,21 @@ export default function CharacterEditor() {
                 min="0"
                 required={true}
             />
-            {getAbilitiesForIds(abilityIds).map((ability, index) => {
-                return (<AbilityItem key={index} ability={ability} onRemove={removeAbility}/>);
-            })}
-            {renderGlobalButtons()}
+            {getAbilityPreview()}
+            <p>Selected Abilities:</p>
+            <div id="selectedAbs" className='mini-ability-item-container'>
+                {abilityIds.map((id) => {
+                    const ability = getAbilityForId(id);
+                    return <MiniAbilityItem 
+                    ability={ability} 
+                    key={id} 
+                    onRemove={handleRemoveAbility}
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}/>
+                })}
+            </div>
+            <p>Ability Library:</p>
+            <AbilitySearchBox sideControls={sideControls} optionalFilter={abilityFilter}/>
         </UnloadConfirmation>
     )
 }

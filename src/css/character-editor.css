@@ -1,0 +1,28 @@
+.mini-ability-item-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+}
+
+.mini-ability-item {
+    display: flex;
+    align-items: center;
+    border-width: 0.1rem;
+    border-style: solid;
+    border-radius: 1rem;
+    border-color: black ;
+    background-color: antiquewhite;
+    padding-left: .5rem;
+    padding-right: .5rem;
+}
+
+.remove-button {
+ height: 1.5rem;
+ text-align: center;
+}
+
+.ability-preview {
+    height: 12rem;
+    width: 50rem;
+    background-color: azure;
+}

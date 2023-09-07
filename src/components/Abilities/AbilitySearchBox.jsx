@@ -11,7 +11,7 @@ const booleanOptions = [
     { value: false, label: 'No' }
 ];
 
-export default function AbilitySearchBox( { sideControls }) {
+export default function AbilitySearchBox( { sideControls, optionalFilter }) {
     const { abilities, getCooldownOptions } = useContext(AbilityContext);
     const [ nameFilter, setNameFilter ] = useState("")
     const [ descriptionFilter, setDescriptionFilter ] = useState("")
@@ -37,6 +37,10 @@ export default function AbilitySearchBox( { sideControls }) {
         }
 
         if (interruptFilter !== undefined && interruptFilter !== ability.isInterrupt) {
+            return false;
+        }
+
+        if (optionalFilter !== undefined && !optionalFilter(ability)) {
             return false;
         }
 
@@ -86,7 +90,7 @@ export default function AbilitySearchBox( { sideControls }) {
             <div className='search-filter'><Select options={booleanOptions} defaultValue={defaultBooleanOption} onChange={onInterruptFilterChange}/></div>
         </div>
         <div>
-            { abilities.filter(a => abilityFilter(a)).map((a, i) => <AbilitySearchItem ability={a} key={i} sideControls={sideControls}/>)}
+            { abilities.filter(a => abilityFilter(a)).map((a) => <AbilitySearchItem ability={a} key={a.id} sideControls={sideControls}/>)}
         </div>
         </>
     );

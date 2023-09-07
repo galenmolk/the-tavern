@@ -4,10 +4,6 @@ body {
     color: rgb(0, 0, 0);
 }
 
-textarea {
-    resize: vertical;
-}
-
 .down-caret {
     width: 0;
     height: 0;
@@ -28,13 +24,6 @@ textarea {
     display: inline-block;
     align-items: center;
     gap: 20px;
-}
-
-.ability-card {
-    background-color: beige;
-    width: 400px;
-    padding: 10px;
-    margin: 20px;
 }
 
 .title {
