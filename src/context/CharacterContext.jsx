@@ -23,8 +23,10 @@ export const CharacterProvider = ({ children }) => {
     }
 
     const addCharacter = () => {
-        const newChars = [NewCharacter(), ...characters];
+        const newC = NewCharacter();
+        const newChars = [newC, ...characters];
         updateAndPost(newChars);
+        setEditingCharacter(newC);
     }
 
     const updateCharacter = (updatedCharacter) => {

@@ -2,7 +2,7 @@ import '../../css/shared/confirmation-modal.css'
 
 export default function ConfirmationModal( { prompt, onYes, onNo } ) {
     return (
-        <div className='modal'>
+        <div className='modal' onClick={onNo}>
             <div className='modal-content'>
                 <p>{prompt}</p>
                 <div className='modal-buttons'>

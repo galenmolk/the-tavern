@@ -2,6 +2,7 @@ import { useContext, useState } from "react"
 import { AbilityContext } from "../../context/AbilityContext"
 import InputField from "../shared/InputField";
 import UnloadConfirmation from "../shared/UnloadConfirmation";
+import ConfirmationModal from "../shared/ConfirmationModal";
 
 export default function Test() {
     const { endEdit, editingAbility, updateAbility } = useContext(AbilityContext)
@@ -11,26 +12,52 @@ export default function Test() {
     const [ cooldown, setCooldown ] = useState(editingAbility.cooldown);
     const [ isPassive, setIsPassive ] = useState(editingAbility.isPassive);
     const [ isInterrupt, setIsInterrupt ] = useState(editingAbility.isInterrupt);
+    const [ discardParams, setDiscardParams ] = useState(null);
+    const [ unsavedChanges, setUnsavedChanges ] = useState(false);
 
     const renderGlobalButtons = () => {
         return (
         <div className='button-panel'>
-            <button className='button back' onClick={handleBack}>Back</button>
-            <button className='button reset' onClick={handleReset}>Reset</button>
+            <button className='button back' onClick={handleTryBack}>Back</button>
+            <button className='button reset' onClick={handleTryReset}>Reset</button>
             <button className='button save' onClick={handleSave}>Save</button>
         </div>);
     }
 
-    const handleBack = () => {
-        endEdit();
+    const cancelDiscard = () => {
+        setDiscardParams(null);
     }
 
-    const handleReset = () => {
+    const handleTryBack = () => {
+        if (unsavedChanges === true) {
+            setDiscardParams({
+                prompt: `Are you sure you want to leave? All unsaved changes to ${editingAbility.name} will be lost.`,
+                confirm: endEdit
+            });
+        } else {
+            endEdit();
+        }
+    }
+
+    const handleTryReset = () => {
+        if (unsavedChanges === true) {
+            setDiscardParams({
+                prompt: `Are you sure you want to reset? All unsaved changes to ${editingAbility.name} will be lost.`,
+                confirm: confirmReset
+            });
+        } else {
+            confirmReset();
+        }
+    }
+
+    const confirmReset = () => {
         setName(editingAbility.name);
         setDescription(editingAbility.description);
         setCooldown(editingAbility.cooldown);
         setIsPassive(editingAbility.isPassive);
         setIsInterrupt(editingAbility.isInterrupt);
+        setDiscardParams(null);
+        setUnsavedChanges(false);
     }
 
     const handleSave = () => {
@@ -48,22 +75,27 @@ export default function Test() {
 
     const handleNameChange = (name) => {
         setName(name);
+        setUnsavedChanges(true);
     }
 
     const handleDescriptionChange = (description) => {
         setDescription(description);
+        setUnsavedChanges(true);
     }
 
     const handleCooldownChange = (cooldown) => {
         setCooldown(cooldown);
+        setUnsavedChanges(true);
     }
 
     const handleIsPassiveChange = (isPassive) => {
         setIsPassive(isPassive);
+        setUnsavedChanges(true);
     }
 
     const handleIsInterruptChange = (isInterrupt) => {
         setIsInterrupt(isInterrupt);
+        setUnsavedChanges(true);
     }
 
     return (
@@ -111,6 +143,10 @@ export default function Test() {
             />
             <br/>
             </div>
+            { discardParams !== null ? <ConfirmationModal 
+                prompt={discardParams.prompt}
+                onYes={discardParams.confirm}
+                onNo={cancelDiscard}/> : null}
         </UnloadConfirmation>
     )
 }
